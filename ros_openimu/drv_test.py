@@ -1,13 +1,7 @@
 import sys
 import time
 
-try:
-    from aceinna.tools import OpenIMU
-except:
-    temp = (sys.path[0])
-    temp2 = temp[0:(len(temp)-7)]
-    sys.path.append(temp2 + 'src')
-    from aceinna.tools import OpenIMU
+from ..src.aceinna.tools import OpenIMU
 
 '''
 try:
