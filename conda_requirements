@@ -2,7 +2,7 @@ numpy==1.21.4
 scipy
 pyserial
 azure-common
-azure-storage-blob
+azure-storage-blob==2.1.0
 azure-storage-common
 certifi
 cffi
