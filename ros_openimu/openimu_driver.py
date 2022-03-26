@@ -42,7 +42,7 @@ class OpenIMUros(Node):
         imu_msg = Imu()             # IMU data
         mag_msg = MagneticField()   # Magnetometer data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[1]
@@ -68,7 +68,7 @@ class OpenIMUros(Node):
         imu_msg = Imu()             # IMU data
         mag_msg = MagneticField()   # Magnetometer data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[2]
@@ -93,7 +93,7 @@ class OpenIMUros(Node):
     def read_a1(self, readback):
         imu_msg = Imu()             # IMU data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[7]
@@ -109,7 +109,7 @@ class OpenIMUros(Node):
     def read_a2(self, readback):
         imu_msg = Imu()             # IMU data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[8]
@@ -126,7 +126,7 @@ class OpenIMUros(Node):
         imu_msg = Imu()             # IMU data
         mag_msg = MagneticField()   # Magnetometer data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[5]
@@ -152,7 +152,7 @@ class OpenIMUros(Node):
         imu_msg = Imu()             # IMU data
         mag_msg = MagneticField()   # Magnetometer data
         #publish the data m/s^2 and convert deg/s to rad/s
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[5]
