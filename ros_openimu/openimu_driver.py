@@ -17,6 +17,8 @@ import threading
 import math
 from .aceinna.tools import OpenIMU
 
+# For odometry message
+from transforms3d.euler import quat2euler, euler2quat
 
 convert_rads = math.pi /180
 convert_tesla = 1/10000
@@ -110,6 +112,8 @@ class OpenIMUros(Node):
         imu_msg = Imu()             # IMU data
         #publish the data m/s^2 and convert deg/s to rad/s
         imu_msg.header.stamp = self.get_clock().now().to_msg()
+        roll, pitch, yaw = readback[2], readback[3], readback[4]
+        (w, x, y, z) = euler2quat([roll, pitch, yaw])
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[8]
@@ -120,6 +124,11 @@ class OpenIMUros(Node):
         imu_msg.angular_velocity.y = readback[6] * convert_rads
         imu_msg.angular_velocity.z = readback[7] * convert_rads
         imu_msg.angular_velocity_covariance[0] = -1
+        imu_msg.orientation.w = w
+        imu_msg.orientation.x = x
+        imu_msg.orientation.y = y
+        imu_msg.orientation.z = z
+        imu_msg.orientation_covariance[0] = -1
         self.pub_imu.publish(imu_msg)
 
     def read_e1(self, readback):
