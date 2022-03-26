@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from hardware.sr_can.sr_can.camera_node import LOGGER
 import rclpy
 from rclpy.node import Node
 from rclpy.publisher import Publisher
@@ -21,13 +20,14 @@ convert_rads = math.pi /180
 convert_tesla = 1/10000
 frame_id = 'OpenIMU'
 
+LOGGER = logging.getLogger(__name__)
+
 class OpenIMUros(Node):
     def __init__(self):
         self.openimudev = OpenIMU()
         self.openimudev.startup()
         self.pub_imu: Publisher = self.create_publisher('imu_acc_ar', Imu, queue_size=1)
         self.pub_mag: Publisher = self.create_publisher('imu_mag', MagneticField, queue_size=1)
-        self.seq = 0
         #read the data - call the get imu measurement data
         self.packetType = 'z1'                       # z1, s1, a1, a2, e1, e2
         
@@ -55,7 +55,6 @@ class OpenIMUros(Node):
         # Publish magnetometer data - convert Gauss to Tesla
         mag_msg.header.stamp = imu_msg.header.stamp
         mag_msg.header.frame_id = frame_id
-        mag_msg.header.seq = self.seq
         mag_msg.magnetic_field.x = readback[7] * convert_tesla
         mag_msg.magnetic_field.y = readback[8] * convert_tesla
         mag_msg.magnetic_field.z = readback[9] * convert_tesla
