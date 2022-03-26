@@ -7,7 +7,7 @@ from rclpy.time import Time, Duration
 import sys
 from sensor_msgs.msg import Imu, MagneticField
 
-from ros_openimu.src.aceinna.tools import OpenIMU
+from ..src.aceinna.tools import OpenIMU
 
 import logging
 import datetime
