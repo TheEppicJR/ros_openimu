@@ -28,8 +28,8 @@ class OpenIMUros(Node):
     def __init__(self):
         self.openimudev = OpenIMU()
         self.openimudev.startup()
-        self.pub_imu: Publisher = self.create_publisher('imu_acc_ar', Imu, queue_size=1)
-        self.pub_mag: Publisher = self.create_publisher('imu_mag', MagneticField, queue_size=1)
+        self.pub_imu: Publisher = self.create_publisher('imu_acc_ar', Imu, 1)
+        self.pub_mag: Publisher = self.create_publisher('imu_mag', MagneticField, 1)
         #read the data - call the get imu measurement data
         self.packetType = 'a2'                       # z1, s1, a1, a2, e1, e2
         
