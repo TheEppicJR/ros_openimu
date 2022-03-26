@@ -19,8 +19,8 @@ try:
     from ..src.aceinna.tools import OpenIMU
 except:
     import sys
-    sys.path.append(".")
-    from .src.aceinna.tools import OpenIMU
+    sys.path.append("..")
+    from src.aceinna.tools import OpenIMU
 
 convert_rads = math.pi /180
 convert_tesla = 1/10000
