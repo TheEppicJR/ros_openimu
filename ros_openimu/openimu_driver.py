@@ -19,7 +19,9 @@ try:
     from ..src.aceinna.tools import OpenIMU
 except:
     import sys
+    print(os.getcwd())
     sys.path.append("..")
+    print(os.getcwd())
     from src.aceinna.tools import OpenIMU
 
 convert_rads = math.pi /180
