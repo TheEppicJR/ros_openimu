@@ -113,7 +113,7 @@ class OpenIMUros(Node):
         #publish the data m/s^2 and convert deg/s to rad/s
         imu_msg.header.stamp = self.get_clock().now().to_msg()
         roll, pitch, yaw = readback[2], readback[3], readback[4]
-        (w, x, y, z) = euler2quat([roll, pitch, yaw])
+        (w, x, y, z) = euler2quat(roll, pitch, yaw)
         imu_msg.header.frame_id = frame_id
         imu_msg.orientation_covariance[0] = -1
         imu_msg.linear_acceleration.x = readback[8]
