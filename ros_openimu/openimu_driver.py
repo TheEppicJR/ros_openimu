@@ -200,12 +200,17 @@ class OpenIMUros(Node):
             print("unknown packet type")
 
     def readimu(self, pktType):
-        readback = self.openimudev.getdata(pktType)
-        return readback
+        try:
+            readback = self.openimudev.getdata(pktType)
+            return readback
+        except:
+            print("oopsie")
+            return None
 
     def pub_data(self):
         readback = self.readimu(self.packetType)
-        self.pub_sensors(self.packetType, readback)
+        if readback is not None:
+            self.pub_sensors(self.packetType, readback)
 
 def main(args=sys.argv[1:]):
     # defaults args
