@@ -39,8 +39,10 @@ class OpenIMU(object):
     def getdata(self, datatype):
         readback = self.imudevice.read_untils_have_data(datatype)
         if readback is None:
-            print(f"{time.time()}Missed one")
+            print(f"{time.time()} Missed one")
             return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+        else:
+            print(f"{time.time()} Got one")
         if datatype == ('z1'):
             timeraw = (readback[0:4]) #time in ms
             time_ms = struct.unpack('I', bytes(timeraw))[0]
