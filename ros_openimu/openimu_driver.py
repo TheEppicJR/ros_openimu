@@ -203,9 +203,10 @@ class OpenIMUros(Node):
         try:
             readback = self.openimudev.getdata(pktType)
             return readback
+        except KeyboardInterrupt:
+            exit()
         except:
             print("oopsie")
-            exit()
             return None
 
     def pub_data(self):
