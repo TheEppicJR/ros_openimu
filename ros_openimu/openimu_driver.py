@@ -27,14 +27,15 @@ frame_id = 'fsds/FSCar'#'OpenIMU'
 LOGGER = logging.getLogger(__name__)
 
 class OpenIMUros(Node):
-    def __init__(self):
+    def __init__(self, i):
         super().__init__("ros_openimu")
         self.openimudev = OpenIMU()
         self.openimudev.startup()
         self.pub_imu: Publisher = self.create_publisher(Imu, 'sr_imu/imu_acc_ar', 1)
         self.pub_mag: Publisher = self.create_publisher(MagneticField, 'sr_imu/imu_mag', 1)
         #read the data - call the get imu measurement data
-        self.packetType = 'z1'#'a2'                       # z1, s1, a1, a2, e1, e2
+        pkttyp = ['z1', 's1', 'a1', 'a2', 'e1', 'e2']
+        self.packetType = pkttyp[i]                       # z1, s1, a1, a2, e1, e2
         
 
     def close(self):
@@ -63,7 +64,7 @@ class OpenIMUros(Node):
         mag_msg.magnetic_field.x = readback[7] * convert_tesla
         mag_msg.magnetic_field.y = readback[8] * convert_tesla
         mag_msg.magnetic_field.z = readback[9] * convert_tesla
-        mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
+        mag_msg.magnetic_field_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         self.pub_mag.publish(mag_msg)
 
     def read_s1(self, readback):
@@ -89,7 +90,7 @@ class OpenIMUros(Node):
         mag_msg.magnetic_field.x = readback[8] * convert_tesla
         mag_msg.magnetic_field.y = readback[9] * convert_tesla
         mag_msg.magnetic_field.z = readback[10] * convert_tesla
-        mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
+        mag_msg.magnetic_field_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         self.pub_mag.publish(mag_msg)
 
     def read_a1(self, readback):
@@ -154,7 +155,7 @@ class OpenIMUros(Node):
         mag_msg.magnetic_field.x = readback[14] * convert_tesla
         mag_msg.magnetic_field.y = readback[15] * convert_tesla
         mag_msg.magnetic_field.z = readback[16] * convert_tesla
-        mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
+        mag_msg.magnetic_field_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         self.pub_mag.publish(mag_msg)
 
     def read_e2(self, readback):
@@ -180,7 +181,7 @@ class OpenIMUros(Node):
         mag_msg.magnetic_field.x = readback[20] * convert_tesla
         mag_msg.magnetic_field.y = readback[21] * convert_tesla
         mag_msg.magnetic_field.z = readback[22] * convert_tesla
-        mag_msg.magnetic_field_covariance = [0,0,0,0,0,0,0,0,0]
+        mag_msg.magnetic_field_covariance = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         self.pub_mag.publish(mag_msg)
 
     def pub_sensors(self, packetType, readback):
@@ -218,6 +219,8 @@ def main(args=sys.argv[1:]):
     # defaults args
     loglevel = 'info'
     print_logs = False
+    i=0
+
 
     numeric_level = getattr(logging, loglevel.upper(), None)
 
@@ -239,7 +242,7 @@ def main(args=sys.argv[1:]):
     # begin ros node
     rclpy.init(args=args)    
 
-    node = OpenIMUros()
+    node = OpenIMUros(i)
     LOGGER.info("OpenIMU driver initialized.")
 
     thread = threading.Thread(target=rclpy.spin, args=(node, ), daemon=True)
