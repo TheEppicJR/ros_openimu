@@ -4,6 +4,7 @@ from ..models.args import DetectorArgs
 from ..framework.communicator import CommunicatorFactory
 from ..devices.openimu.uart_provider import Provider
 import time
+
 class OpenIMU(object):
     '''
     IMU Device Detector
@@ -27,7 +28,7 @@ class OpenIMU(object):
         self.options = DetectorArgs(**kwargs)
 
     def onfinddev(self, device):
-        self.imudevice = device
+        self.imudevice: Provider = device
         #self.imudevice.setup(None)
     
     def startup(self):

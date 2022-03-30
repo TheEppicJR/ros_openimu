@@ -34,7 +34,7 @@ class OpenIMUros(Node):
         self.pub_imu: Publisher = self.create_publisher(Imu, 'sr_imu/imu_acc_ar', 1)
         self.pub_mag: Publisher = self.create_publisher(MagneticField, 'sr_imu/imu_mag', 1)
         #read the data - call the get imu measurement data
-        self.packetType = 'a2'                       # z1, s1, a1, a2, e1, e2
+        self.packetType = 'z1'#'a2'                       # z1, s1, a1, a2, e1, e2
         
 
     def close(self):
