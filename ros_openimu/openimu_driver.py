@@ -219,7 +219,7 @@ def main(args=sys.argv[1:]):
     # defaults args
     loglevel = 'info'
     print_logs = False
-    i=2
+    i=3
 
 
     numeric_level = getattr(logging, loglevel.upper(), None)
