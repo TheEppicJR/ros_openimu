@@ -156,6 +156,7 @@ class SerialPort(Communicator):
                 print(num_ports)
                 self.autobaud(num_ports)
                 time.sleep(0.5)
+        print(self.device)
         callback(self.device)
 
     def find_ports(self):
@@ -171,7 +172,7 @@ class SerialPort(Communicator):
             if "Bluetooth" in port:
                 continue
             else:
-                # print('Check if is a used port ' + port)
+                print(f"Check if is a used port {port}")
                 ser = None
                 try:
                     ser = serial.Serial(port, exclusive=True)
