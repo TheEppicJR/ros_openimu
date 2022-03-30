@@ -1,7 +1,7 @@
 import sys
 import time
 
-from .aceinna.tools import OpenIMU
+from aceinna.tools import OpenIMU
 
 '''
 try:
