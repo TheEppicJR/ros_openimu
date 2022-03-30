@@ -205,6 +205,7 @@ class OpenIMUros(Node):
             return readback
         except:
             print("oopsie")
+            exit()
             return None
 
     def pub_data(self):

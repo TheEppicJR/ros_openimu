@@ -3,7 +3,7 @@ import struct
 from ..models.args import DetectorArgs
 from ..framework.communicator import CommunicatorFactory
 from ..devices.openimu.uart_provider import Provider
-
+import time
 class OpenIMU(object):
     '''
     IMU Device Detector
@@ -39,7 +39,7 @@ class OpenIMU(object):
     def getdata(self, datatype):
         readback = self.imudevice.read_untils_have_data(datatype)
         if readback is None:
-            print("That aint fucking work")
+            print(f"{time.time()}Missed one")
             return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         if datatype == ('z1'):
             timeraw = (readback[0:4]) #time in ms
