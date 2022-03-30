@@ -248,7 +248,7 @@ def main(args=sys.argv[1:]):
     thread = threading.Thread(target=rclpy.spin, args=(node, ), daemon=True)
     thread.start()
 
-    rate = node.create_rate(100)
+    rate = node.create_rate(50)
 
     try:
         while rclpy.ok():
