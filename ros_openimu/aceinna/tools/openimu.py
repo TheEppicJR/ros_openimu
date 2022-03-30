@@ -40,7 +40,7 @@ class OpenIMU(object):
         readback = self.imudevice.read_untils_have_data(datatype)
         if readback is None:
             print("That aint fucking work")
-            return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            return [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
         if datatype == ('z1'):
             timeraw = (readback[0:4]) #time in ms
             time_ms = struct.unpack('I', bytes(timeraw))[0]
