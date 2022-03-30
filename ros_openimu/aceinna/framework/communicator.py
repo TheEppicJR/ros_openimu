@@ -153,6 +153,7 @@ class SerialPort(Communicator):
                     break
 
                 num_ports = self.find_ports()
+                print(num_ports)
                 self.autobaud(num_ports)
                 time.sleep(0.5)
         callback(self.device)
